@@ -129,6 +129,11 @@ class MaterialIntroView : RelativeLayout {
   var dismissOnTouch = false
 
   /**
+   * Dismiss on target touch
+   */
+  var dismissOnTarget = true
+
+  /**
    * Info card view container
    */
   private lateinit var infoView: RelativeLayout
@@ -137,6 +142,11 @@ class MaterialIntroView : RelativeLayout {
    * Info CardView
    */
   private lateinit var infoCardView: CardView
+
+  /**
+  * Info CardView BackgroundRes
+  */
+  var infoCardViewRes : Int? = null
 
   /**
    * Info TextView
@@ -380,7 +390,7 @@ class MaterialIntroView : RelativeLayout {
     val isTouchOnFocus = targetShape.isTouchOnFocus(xT.toDouble(), yT.toDouble())
     when (event.action) {
       MotionEvent.ACTION_DOWN -> {
-        if (isTouchOnFocus && isPerformClick) {
+        if (isTouchOnFocus && dismissOnTarget && isPerformClick) {
           myTargetView.view.apply {
             isPressed = true
             invalidate()
@@ -389,10 +399,10 @@ class MaterialIntroView : RelativeLayout {
         return true
       }
       MotionEvent.ACTION_UP -> {
-        if (isTouchOnFocus || dismissOnTouch) {
+        if ((isTouchOnFocus &&dismissOnTarget) || dismissOnTouch ) {
           dismiss()
         }
-        if (isTouchOnFocus && isPerformClick) {
+        if (isTouchOnFocus && dismissOnTarget && isPerformClick) {
           myTargetView.view.apply {
             performClick()
             isPressed = true
@@ -448,6 +458,7 @@ class MaterialIntroView : RelativeLayout {
       infoCardView = infoView.findViewById(R.id.info_card_view)
       infoTextView = infoView.findViewById(R.id.info_text)
       helpIconView = infoView.findViewById(R.id.info_icon)
+      infoCardViewRes?.let { infoCardView.setBackgroundResource(it) }
       if (infoCustomViewRes != null || infoCustomView != null) {
         infoCustomViewRes?.let {
           infoCustomView = LayoutInflater.from(context).inflate(it, infoCardView, false)
@@ -682,7 +693,9 @@ class MaterialIntroView : RelativeLayout {
     this.padding = config.padding
 
     this.dismissOnTouch = config.dismissOnTouch
+    this.dismissOnTarget = config.dismissOnTarget
 
+    this.infoCardViewRes = config.infoCardViewRes
     this.isInfoEnabled = config.isInfoEnabled
     this.infoText = config.infoText
     this.infoTextColor = config.infoTextColor

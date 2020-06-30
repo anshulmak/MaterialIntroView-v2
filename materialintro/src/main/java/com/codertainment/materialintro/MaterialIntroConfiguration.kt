@@ -29,6 +29,7 @@ data class MaterialIntroConfiguration(
   var padding: Int = Constants.DEFAULT_TARGET_PADDING,
 
   var dismissOnTouch: Boolean = false,
+  var dismissOnTarget: Boolean = true,
 
   var isInfoEnabled: Boolean = true,
   var infoText: CharSequence = "",
@@ -49,6 +50,9 @@ data class MaterialIntroConfiguration(
   var infoCustomView: View? = null,
   @LayoutRes
   var infoCustomViewRes: Int? = null,
+
+  @DrawableRes
+  var infoCardViewRes : Int? = null,
 
   var isDotViewEnabled: Boolean = true,
   var isDotAnimationEnabled: Boolean = true,

@@ -13,7 +13,7 @@ import com.codertainment.materialintro.view.MaterialIntroView
  * on 11/02/2020
  */
 
-class MaterialIntroSequence private constructor(private val activity: Activity) {
+class MaterialIntroSequence(private val activity: Activity) {
 
   companion object {
     private val sequences = ArrayList<MaterialIntroSequence>()
@@ -30,9 +30,9 @@ class MaterialIntroSequence private constructor(private val activity: Activity) 
     }
   }
 
-  private var mivs = ArrayList<MaterialIntroView>()
+  var mivs = ArrayList<MaterialIntroView>()
 
-  private var counter = 0
+  var counter = 0
   private var isMivShowing = false
   private val handler by lazy {
     Handler()
@@ -109,7 +109,7 @@ class MaterialIntroSequence private constructor(private val activity: Activity) 
     }
   }
 
-  private fun nextIntro() {
+  fun nextIntro() {
     if (isSkipped && persistSkip) {
       skip()
     } else if (counter < mivs.size) {

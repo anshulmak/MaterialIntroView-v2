@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.codertainment.materialintro.sample.R
 import com.codertainment.materialintro.sequence.SkipLocation
@@ -13,6 +14,7 @@ import com.codertainment.materialintro.shape.ShapeType
 import com.codertainment.materialintro.utils.materialIntroSequence
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_custom_info_view.*
+import org.jetbrains.anko.support.v4.toast
 
 class CustomInfoViewFragment : Fragment() {
 
@@ -35,6 +37,7 @@ class CustomInfoViewFragment : Fragment() {
       addConfig {
         infoCustomViewRes = R.layout.info_custom_view
         showOnlyOnce = false
+        isPerformClick = false
         targetView = custom_view_res_button
         skipLocation = SkipLocation.BOTTOM_RIGHT
         dotIconColor = Color.argb(200, 255, 0, 0)
